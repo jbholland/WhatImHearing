@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  WhatsPlaying
+
+  Created by John Holland on 5/1/23.
+  
+*/
+"main_heading" = "Entrées Wikipédia sur ce qui est en cours de lecture :";
+"song" = "Morceau:";
+"by" = "De:";
+"album" = "Album:";
+"cannotFindSong" = "Wikipedia ne trouve pas cette chanson.";
+"cannotFindArtist" = "Wikipedia ne trouve pas cet artiste.";
+"cannotFindAlbum" = "Wikipedia ne trouve pas cet album.";

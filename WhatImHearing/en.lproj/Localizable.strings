@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  WhatsPlaying
+
+  Created by John Holland on 5/1/23.
+  
+*/
+"main_heading" = "Wikipedia entries on what's playing:";
+"song" = "Song:" ;
+"by" = "By:" ;
+"album" = "Album:";
+"cannotFindSong" = "Wikipedia cannot find this song.";
+"cannotFindArtist" = "Wikipedia cannot find this artist";
+"cannotFindAlbum" = "Wikipedia cannot find this album";
+
+
