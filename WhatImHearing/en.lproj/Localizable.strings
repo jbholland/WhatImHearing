@@ -5,7 +5,7 @@
   Created by John Holland on 5/1/23.
   
 */
-"main_heading" = "Wikipedia entries on what's playing:";
+"main_heading" = "Wikipedia entries on what we're hearing:";
 "song" = "Song:" ;
 "by" = "By:" ;
 "album" = "Album:";

@@ -36,9 +36,12 @@ struct ContentView: View {
     
     
     var body: some View {
+        ZStack {
+            Color("appBackground").ignoresSafeArea()
+        
         VStack {
             Spacer()
-            Text(NSLocalizedString("main_heading" , comment: "Wikipedia entries on what's playing:")).bold().font(.title).multilineTextAlignment(.center).padding()
+            Text(NSLocalizedString("main_heading" , comment: "Wikipedia entries on what we're  hearing:")).bold().font(.title).multilineTextAlignment(.center).padding()
                 .onChange(of: scenePhase) {
                     newPhase in
                     Task {
@@ -100,6 +103,7 @@ struct ContentView: View {
                 }
             .buttonStyle(.borderedProminent)
             Spacer()
+        }
         }
     }
 }
