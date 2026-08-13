@@ -8,11 +8,20 @@ import Foundation
 import AVKit
 import ShazamKit
 
+func getPreferredLanguage(locale:Locale)->String {
+    let langCode = String(locale.identifier.dropLast(3))
+    return langCode
+}
 class ShazamViewModel: NSObject, ObservableObject {
+    private var locale=Locale.current
     private var session = SHSession()
     private let audioEngine = AVAudioEngine()
     private var wikipediaModel = WikipediaModel()
-    
+    let wikipath = ".wikipedia.org/wiki/"
+    private var showArtistCantOpen = false
+    private var showTitleCantOpen = false
+    private var showAlbumCantOpen = false
+    private var wikiUrl =  "https://en.wikipedia.org/wiki/"
     @Published var viewState: ViewState = .initial
 
     override init() {
@@ -107,6 +116,8 @@ extension ShazamViewModel: SHSessionDelegate {
             appleMusicUrl: firstMatch.appleMusicURL
         )
         DispatchQueue.main.async {
+            self.wikiUrl =   "https://" + getPreferredLanguage(locale: self.locale) + self.wikipath
+            self.wikipediaModel.wikiUrl = self.wikiUrl
             self.wikipediaModel.populateCurrPlaying( title: song.title, artist: song.artist)
             self.viewState = .result(song: song, wikipediaModel: self.wikipediaModel)
         }
