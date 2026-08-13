@@ -1,0 +1,15 @@
+{
+  "originHash" : "e0d65710e42129f0eaa73a201005c94a775cc014cd8f5ee25380c3678e45789c",
+  "pins" : [
+    {
+      "identity" : "rippleview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/emmanuelkehinde/RippleView.git",
+      "state" : {
+        "revision" : "8a83d51b668086b4fd9807e842261d304df6f54e",
+        "version" : "1.0.2"
+      }
+    }
+  ],
+  "version" : 3
+}
