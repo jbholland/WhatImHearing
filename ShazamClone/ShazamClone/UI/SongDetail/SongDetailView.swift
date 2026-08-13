@@ -66,7 +66,7 @@ struct SongDetailView: View {
                                 print("can't open this  song")
                             }
                         }.font(.title)
-                            .alert(NSLocalizedString("cannotFindSong", comment: "Wikipedia cannot find this song"), isPresented: $showTitleCantOpen){
+                            .alert(Text("Wikipedia cannot find this song"), isPresented: $showTitleCantOpen){
                                 Button("OK", role: .cancel) {
                                     showTitleCantOpen = false
                                 }
@@ -82,7 +82,7 @@ struct SongDetailView: View {
                                     print("can't open this  artist")
                                 }
                             }.font(.title)
-                                .alert(NSLocalizedString("cannotFindArtist", comment: "Wikipedia cannot find this artist"), isPresented: $showArtistCantOpen){
+                                .alert(Text("Wikipedia cannot find this artist"), isPresented: $showArtistCantOpen){
                                     Button("OK", role: .cancel) {
                                         showArtistCantOpen = false
                                     }

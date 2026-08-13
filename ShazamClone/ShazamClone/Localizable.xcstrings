@@ -1,0 +1,276 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Close" : {
+      "comment" : "Button title that dismisses an alert.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ciérra"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermez"
+          }
+        }
+      }
+    },
+    "Go to Setting" : {
+      "comment" : "Button title that opens the app permission settings.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to Setting"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ve a Configuración"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accédez aux paramètres"
+          }
+        }
+      }
+    },
+    "Microphone access not allowed" : {
+      "comment" : "Alert title shown when microphone permission is denied.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Microphone access not allowed"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se permite el acceso al micrófono."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'accès au microphone n'est pas autorisé."
+          }
+        }
+      }
+    },
+    "No Result Found" : {
+      "comment" : "Message shown when music recognition does not find a match.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Result Found"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se encontraron resultados"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun résultat trouvé"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "comment" : "Button title that acknowledges or dismisses an alert.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Play on Apple Music " : {
+      "comment" : "Button title that opens the recognized song in Apple Music.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play on Apple Music "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reproducir en Apple Music "
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Écouter sur Apple Music "
+          }
+        }
+      }
+    },
+    "Tap the record button to listen to music around you and find it on Wikipedia" : {
+      "comment" : "Informational alert message explaining what the record button does.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap the record button to listen to music around you and find it on Wikipedia"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "76\nPulsa el botón de grabar para escuchar la música que te rodea y encontrarla en Wikipedia."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appuyez sur le bouton d'enregistrement pour écouter la musique qui vous entoure et la retrouver sur Wikipédia."
+          }
+        }
+      }
+    },
+    "Try Again" : {
+      "comment" : "Button title that starts music recognition again after no result was found.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try Again"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intentar otra vez"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Essayer à nouveau"
+          }
+        }
+      }
+    },
+    "Turn on microphone access to listen to music around you" : {
+      "comment" : "Alert message explaining why microphone permission is needed.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn on microphone access to listen to music around you"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activa el acceso al micrófono para escuchar la música que te rodea."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activez l'accès au microphone pour écouter la musique autour de vous."
+          }
+        }
+      }
+    },
+    "What I'm Hearing" : {
+      "comment" : "App name shown in the information alert.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What I'm Hearing"
+          }
+        }
+      }
+    },
+    "Wikipedia cannot find this artist" : {
+      "comment" : "Alert message shown when the artist Wikipedia page cannot be opened.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wikipedia cannot find this artist"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wikipedia no encuentra a este artista."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wikipedia ne trouve pas cet artiste"
+          }
+        }
+      }
+    },
+    "Wikipedia cannot find this song" : {
+      "comment" : "Alert message shown when the song Wikipedia page cannot be opened.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wikipedia cannot find this song"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wikipedia ne trouve pas cette chanson"
+          }
+        }
+      }
+    },
+    "Wikipedia:" : {
+      "comment" : "Heading shown above Wikipedia links for the matched song and artist.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wikipedia:"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.2"
+}
