@@ -11,6 +11,8 @@ import ShazamKit
 class ShazamViewModel: NSObject, ObservableObject {
     private var session = SHSession()
     private let audioEngine = AVAudioEngine()
+    private var wikipediaModel = WikipediaModel()
+    
     @Published var viewState: ViewState = .initial
 
     override init() {
@@ -105,7 +107,8 @@ extension ShazamViewModel: SHSessionDelegate {
             appleMusicUrl: firstMatch.appleMusicURL
         )
         DispatchQueue.main.async {
-            self.viewState = .result(song: song)
+            self.wikipediaModel.populateCurrPlaying( title: song.title, artist: song.artist)
+            self.viewState = .result(song: song, wikipediaModel: self.wikipediaModel)
         }
     }
 
@@ -125,6 +128,6 @@ extension ShazamViewModel {
         case infoAlert
         case recordPermissionSettingsAlert
         case noResult
-        case result(song: Song)
+        case result(song: Song, wikipediaModel:WikipediaModel)
     }
 }

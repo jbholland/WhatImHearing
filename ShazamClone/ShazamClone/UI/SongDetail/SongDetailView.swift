@@ -9,7 +9,10 @@ import SwiftUI
 
 struct SongDetailView: View {
     var song: Song
-
+    var wikipediaModel:WikipediaModel
+    @State private var showArtistCantOpen = false
+    @State private var showTitleCantOpen = false
+    @Environment(\.openURL) private var openURL
     var body: some View {
         ZStack {
             GeometryReader { geometry in
@@ -37,19 +40,7 @@ struct SongDetailView: View {
                             .font(.subheadline)
                             .foregroundColor(Color.black)
 
-                        ScrollView(.horizontal, showsIndicators: false, content: {
-                            HStack {
-                                ForEach(0..<song.genres.count, id: \.self) { index in
-                                    Text(song.genres[index])
-                                        .font(.caption)
-                                        .padding(4)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 4)
-                                                .fill(Color.gray.opacity(0.3))
-                                        )
-                                }
-                            }
-                        })
+                  
                     }
                     .padding(.horizontal)
                     .padding(.bottom)
@@ -65,7 +56,39 @@ struct SongDetailView: View {
                                         .shadow(radius: 1)
                                 )
                         })
-                        .padding(.bottom)
+                        
+                        Text("Wikipedia:") .bold().font(.title).multilineTextAlignment(.center)
+                        Button(wikipediaModel.currentTitle) {
+                            if  wikipediaModel.canOpenTitle{
+                                openURL(wikipediaModel.currentTitleURLForWiki)
+                            } else {
+                                showTitleCantOpen = true
+                                print("can't open this  song")
+                            }
+                        }.font(.title)
+                            .alert(NSLocalizedString("cannotFindSong", comment: "Wikipedia cannot find this song"), isPresented: $showTitleCantOpen){
+                                Button("OK", role: .cancel) {
+                                    showTitleCantOpen = false
+                                }
+                            }
+                            .buttonStyle(.borderedProminent)
+                        
+                           
+                            Button(wikipediaModel.currentArtist){
+                                if  wikipediaModel.canOpenArtist{
+                                    openURL(wikipediaModel.currentArtistURLForWiki)
+                                } else {
+                                    showArtistCantOpen = true
+                                    print("can't open this  artist")
+                                }
+                            }.font(.title)
+                                .alert(NSLocalizedString("cannotFindArtist", comment: "Wikipedia cannot find this artist"), isPresented: $showArtistCantOpen){
+                                    Button("OK", role: .cancel) {
+                                        showArtistCantOpen = false
+                                    }
+                                }
+                            .buttonStyle(.borderedProminent)
+                           
                     }
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -83,7 +106,17 @@ struct SongDetailView: View {
 
 struct SongDetailView_Previews: PreviewProvider {
     static var previews: some View {
-//        SongDetailView()
+        SongDetailView(
+            song: Song(
+                title: "Here Comes The Sun",
+                artist: "The Beatles",
+                genres: ["Rock"],
+                artworkUrl: URL(string: "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/46/5a/87/465a87e3-a042-06ae-c645-4bbf0bd26305/00602567713433.rgb.jpg/600x600bb.jpg"),
+                appleMusicUrl: URL(string: "https://music.apple.com/us/album/here-comes-the-sun/1441164416?i=1441164670")
+            )
+            , wikipediaModel: WikipediaModel()
+            
+        )
         Text("")
     }
 }

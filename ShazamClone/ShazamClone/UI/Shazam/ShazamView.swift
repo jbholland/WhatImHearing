@@ -15,8 +15,19 @@ struct ShazamView: View {
     @State private var shouldShowRecordPermissionAlert = false
     @State private var shouldShowNoResultView = false
     @State private var foundSong: Song!
+    @State private var foundWikipediaModel = WikipediaModel()
     @State private var cancellables: Set<AnyCancellable> = []
     @EnvironmentObject private var shazamViewModel: ShazamViewModel
+    @Environment(\.locale) private var locale
+    @Environment(\.openURL) private var openURL
+    @Environment(\.scenePhase) var scenePhase
+     
+    let wikipath = ".wikipedia.org/wiki/"
+    @State private var showArtistCantOpen = false
+    @State private var showTitleCantOpen = false
+    @State private var showAlbumCantOpen = false
+    
+
     
     var body: some View {
         ZStack {
@@ -50,7 +61,7 @@ struct ShazamView: View {
                     if foundSong != nil {
                         VStack {
                             withAnimation(.easeInOut) {
-                                SongDetailView(song: foundSong)
+                                SongDetailView(song: foundSong, wikipediaModel: foundWikipediaModel)
                             }
                             Spacer()
                             recordButton
@@ -73,10 +84,7 @@ struct ShazamView: View {
                     Spacer()
                 }
 
-                VStack {
-                    Spacer()
-                    footerText.padding(.bottom, 16)
-                }
+           
             }
             .padding(EdgeInsets(top: Constants.topInset, leading: 0, bottom: Constants.bottomInset, trailing: 0))
         }
@@ -142,12 +150,7 @@ struct ShazamView: View {
 
     }
 
-    @ViewBuilder
-    private var footerText: some View {
-        Text("Shazam Clone")
-            .font(.footnote)
-            .foregroundColor(Color.black.opacity(0.7))
-    }
+    
 
     private func bindViewModel() {
         shazamViewModel.$viewState.sink { viewState in
@@ -169,9 +172,10 @@ struct ShazamView: View {
                 shouldShowRippleView = false
                 shouldShowNoResultView = true
                 foundSong = nil
-            case .result(let song):
+            case .result(let song, let wikipediaModel):
                 withAnimation {
                     foundSong = song
+                    foundWikipediaModel = wikipediaModel
                 }
                 shouldShowRippleView = false
             }
