@@ -118,7 +118,7 @@ extension ShazamViewModel: SHSessionDelegate {
         DispatchQueue.main.async {
             self.wikiUrl =   "https://" + getPreferredLanguage(locale: self.locale) + self.wikipath
             self.wikipediaModel.wikiUrl = self.wikiUrl
-            self.wikipediaModel.populateCurrPlaying( title: song.title, artist: song.artist)
+            self.wikipediaModel.populateCurrPlaying( title: song.title, artist: song.artist)            
             self.viewState = .result(song: song, wikipediaModel: self.wikipediaModel)
         }
     }

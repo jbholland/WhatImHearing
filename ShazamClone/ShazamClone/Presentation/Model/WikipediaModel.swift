@@ -84,6 +84,14 @@ public class WikipediaModel : ObservableObject {
         
         currentTitleURLForWiki = URL(string:wikiUrl + currentTitleForWiki) ?? safeUrl
         currentArtistURLForWiki = URL(string:wikiUrl + currentArtistForWiki) ?? safeUrl
+        Task {
+            do {
+                try await  self.checkWikiUrls()
+            }
+            catch {
+                print("error checking wikipedia urls")
+            }
+        }
  
         
     }
