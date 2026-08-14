@@ -34,8 +34,17 @@ class ShazamViewModel: NSObject, ObservableObject {
     }
 
     func startListening() {
+        
+        
         let audioSession = AVAudioSession.sharedInstance()
-
+        do {
+            try audioSession.setCategory(.playAndRecord, options: .defaultToSpeaker)
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+        }
+        catch let error as NSError {
+          print("ERROR:", error)
+        }
+     
         switch audioSession.recordPermission {
         case .undetermined:
             requestRecordPermission(audioSession: audioSession)
