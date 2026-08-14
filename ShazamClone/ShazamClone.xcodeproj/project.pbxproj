@@ -22,7 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		51B7BFF72690CFB200DA2E87 /* ShazamClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShazamClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		51B7BFF72690CFB200DA2E87 /* What I'm Hearing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "What I'm Hearing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		51B7BFFA2690CFB200DA2E87 /* ShazamCloneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShazamCloneApp.swift; sourceTree = "<group>"; };
 		51B7BFFC2690CFB200DA2E87 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		51B7BFFE2690CFB200DA2E87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -87,7 +87,7 @@
 		51B7BFF82690CFB200DA2E87 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				51B7BFF72690CFB200DA2E87 /* ShazamClone.app */,
+				51B7BFF72690CFB200DA2E87 /* What I'm Hearing.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -168,7 +168,7 @@
 				514A626A26978E3B008ABBDF /* RippleView */,
 			);
 			productName = ShazamClone;
-			productReference = 51B7BFF72690CFB200DA2E87 /* ShazamClone.app */;
+			productReference = 51B7BFF72690CFB200DA2E87 /* What I'm Hearing.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -381,7 +381,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.vin-dit.WhatImHearing";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "What I'm Hearing";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -403,7 +403,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.vin-dit.WhatImHearing";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "What I'm Hearing";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
