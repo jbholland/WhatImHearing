@@ -63,9 +63,9 @@ struct SongDetailView: View {
                                 openURL(wikipediaModel.currentTitleURLForWiki)
                             } else {
                                 showTitleCantOpen = true
-                                print("can't open this  song")
+                                debugPrint("can't open this  song")
                             }
-                        }.font(.title)
+                        }.font(.headline)
                             .alert(Text("Wikipedia cannot find this song"), isPresented: $showTitleCantOpen){
                                 Button("OK", role: .cancel) {
                                     showTitleCantOpen = false
@@ -79,15 +79,16 @@ struct SongDetailView: View {
                                     openURL(wikipediaModel.currentArtistURLForWiki)
                                 } else {
                                     showArtistCantOpen = true
-                                    print("can't open this  artist")
+                                    debugPrint("can't open this  artist")
                                 }
-                            }.font(.title)
+                            }.font(.headline)
                                 .alert(Text("Wikipedia cannot find this artist"), isPresented: $showArtistCantOpen){
                                     Button("OK", role: .cancel) {
                                         showArtistCantOpen = false
                                     }
                                 }
                             .buttonStyle(.borderedProminent)
+                            .padding(.bottom)
                            
                     }
                 }

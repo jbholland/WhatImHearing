@@ -18,10 +18,12 @@ class ShazamViewModel: NSObject, ObservableObject {
     private let audioEngine = AVAudioEngine()
     private var wikipediaModel = WikipediaModel()
     let wikipath = ".wikipedia.org/wiki/"
+    let wikipathSearch = ".wikipedia.org/"
     private var showArtistCantOpen = false
     private var showTitleCantOpen = false
     private var showAlbumCantOpen = false
     private var wikiUrl =  "https://en.wikipedia.org/wiki/"
+    private var wikiUrlSearch = "https://en.wikipedia.org/"
     @Published var viewState: ViewState = .initial
 
     override init() {
@@ -42,7 +44,7 @@ class ShazamViewModel: NSObject, ObservableObject {
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         }
         catch let error as NSError {
-          print("ERROR:", error)
+          debugPrint("ERROR:", error)
         }
      
         switch audioSession.recordPermission {
@@ -71,7 +73,7 @@ class ShazamViewModel: NSObject, ObservableObject {
                         self?.proceedWithRecording()
                     }
                 } else {
-                    print("Permission denied")
+                    debugPrint("Permission denied")
                 }
             }
         }
@@ -92,7 +94,7 @@ class ShazamViewModel: NSObject, ObservableObject {
 
         inputNode.removeTap(onBus: .zero)
         inputNode.installTap(onBus: .zero, bufferSize: 1024, format: recordingFormat) { [weak self] buffer, time in
-            print("Current Recording at: \(time)")
+            debugPrint("Current Recording at: \(time)")
             self?.session.matchStreamingBuffer(buffer, at: time)
         }
 
@@ -101,7 +103,7 @@ class ShazamViewModel: NSObject, ObservableObject {
         do {
             try audioEngine.start()
         } catch {
-            print(error.localizedDescription)
+            debugPrint(error.localizedDescription)
         }
     }
 
@@ -126,14 +128,23 @@ extension ShazamViewModel: SHSessionDelegate {
         )
         DispatchQueue.main.async {
             self.wikiUrl =   "https://" + getPreferredLanguage(locale: self.locale) + self.wikipath
+            self.wikiUrlSearch = "https://" + getPreferredLanguage(locale: self.locale) + self.wikipathSearch
             self.wikipediaModel.wikiUrl = self.wikiUrl
-            self.wikipediaModel.populateCurrPlaying( title: song.title, artist: song.artist)            
+            self.wikipediaModel.wikiUrlSearch = self.wikiUrlSearch
+            debugPrint("running populateCurrPlaying")
+            do {
+                try self.wikipediaModel.populateCurrPlaying( title: song.title, artist: song.artist)
+            }
+            catch let error {
+                debugPrint("error calling populateCurrPlaying", error)
+            }
+            debugPrint("back from populateCurrPlaying")
             self.viewState = .result(song: song, wikipediaModel: self.wikipediaModel)
         }
     }
 
     func session(_ session: SHSession, didNotFindMatchFor signature: SHSignature, error: Error?) {
-        print(error?.localizedDescription ?? "")
+        debugPrint(error?.localizedDescription ?? "")
         stopRecording()
         DispatchQueue.main.async {
             self.viewState = .noResult

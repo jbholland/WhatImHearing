@@ -56,18 +56,18 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Microphone access not allowed"
+            "value" : "Microphone access not allowed."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "No se permite el acceso al micrófono."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "L'accès au microphone n'est pas autorisé."
           }
         }
@@ -80,19 +80,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No Result Found"
+            "value" : "No Result Found."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No se encontraron resultados"
+            "value" : "No se encontraron resultados."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aucun résultat trouvé"
+            "value" : "Aucun résultat trouvé."
           }
         }
       }
@@ -140,19 +140,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap the record button to listen to music around you and find it on Wikipedia"
+            "value" : "Tap the 🎤︎ button to listen to music around you and find it on Wikipedia."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pulsa el botón de grabar para escuchar la música que te rodea y encontrarla en Wikipedia."
+            "value" : "Pulsa el botón 🎤︎ para escuchar la música que te rodea y encontrarla en Wikipedia."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Appuyez sur le bouton d'enregistrement pour écouter la musique qui vous entoure et la retrouver sur Wikipédia."
+            "value" : "Appuyez sur le bouton 🎤︎ pour écouter la musique qui vous entoure et la retrouver sur Wikipédia."
           }
         }
       }
@@ -164,19 +164,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Try Again"
+            "value" : "Try Again."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Intentar otra vez"
+            "value" : "Intentar otra vez."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Essayer à nouveau"
+            "value" : "Essayer à nouveau."
           }
         }
       }
@@ -188,18 +188,18 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Turn on microphone access to listen to music around you"
+            "value" : "Turn on microphone access to listen to music around you."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Activa el acceso al micrófono para escuchar la música que te rodea."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Activez l'accès au microphone pour écouter la musique autour de vous."
           }
         }
@@ -224,19 +224,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wikipedia cannot find this artist"
+            "value" : "Wikipedia cannot find this artist."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Wikipedia no encuentra a este artista."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wikipedia ne trouve pas cet artiste"
+            "value" : "Wikipedia ne trouve pas cet artiste."
           }
         }
       }
@@ -248,19 +248,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wikipedia cannot find this song"
+            "value" : "Wikipedia cannot find this song."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Wikipedia no encuentra esta canción."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wikipedia ne trouve pas cette chanson"
+            "value" : "Wikipedia ne trouve pas cette chanson."
           }
         }
       }
