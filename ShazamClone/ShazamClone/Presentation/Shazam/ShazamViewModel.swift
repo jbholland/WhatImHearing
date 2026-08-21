@@ -21,7 +21,6 @@ class ShazamViewModel: NSObject, ObservableObject {
     let wikipathSearch = ".wikipedia.org/"
     private var showArtistCantOpen = false
     private var showTitleCantOpen = false
-    private var showAlbumCantOpen = false
     private var wikiUrl =  "https://en.wikipedia.org/wiki/"
     private var wikiUrlSearch = "https://en.wikipedia.org/"
     @Published var viewState: ViewState = .initial
@@ -62,6 +61,13 @@ class ShazamViewModel: NSObject, ObservableObject {
     }
 
     func stopListening() {
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+             try audioSession.setActive(false, options: .notifyOthersOnDeactivation)
+        }
+        catch let error as NSError {
+          debugPrint("ERROR:", error)
+        }
         stopRecording()
     }
 
@@ -108,6 +114,7 @@ class ShazamViewModel: NSObject, ObservableObject {
     }
 
     private func stopRecording() {
+        self.viewState = .initial
         audioEngine.stop()
     }
 }
@@ -140,6 +147,7 @@ extension ShazamViewModel: SHSessionDelegate {
             }
             debugPrint("back from populateCurrPlaying")
             self.viewState = .result(song: song, wikipediaModel: self.wikipediaModel)
+    
         }
     }
 

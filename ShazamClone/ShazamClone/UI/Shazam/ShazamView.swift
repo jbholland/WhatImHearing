@@ -11,7 +11,9 @@ import SwiftUI
 struct ShazamView: View {
     @State private var shouldShowRippleView = false
     @State private var shouldShowRecordButton = false
+    @State private var shouldShowStopButton = false
     @State private var shouldShowInfoAlert = false
+    @State private var shouldShowIntroText = false
     @State private var shouldShowRecordPermissionAlert = false
     @State private var shouldShowNoResultView = false
     @State private var foundSong: Song!
@@ -35,6 +37,11 @@ struct ShazamView: View {
 
             ZStack {
                 VStack(spacing: 20) {
+                    if shouldShowIntroText {
+                        Text("What I'm Hearing")
+                            .frame(width: 250, height: 100, alignment: .center)
+                            .font(.title2)
+                    }
                     if shouldShowRippleView {
                         RippleView(
                             style: .solid,
@@ -43,6 +50,9 @@ struct ShazamView: View {
                             timeIntervalBetweenRipples: 0.18
                         )
                         .padding(.horizontal, 48)
+                    }
+                    if shouldShowStopButton {
+                        stopButton
                     }
 
                     if shouldShowNoResultView {
@@ -56,6 +66,13 @@ struct ShazamView: View {
                             .alert(isPresented: $shouldShowRecordPermissionAlert, content: {
                                 permissionAlert
                             })
+     
+                    }
+                    if shouldShowIntroText{
+                        // this is localized
+                        Text("Tap the record button to listen to music around you and find it on Wikipedia")
+                            .frame(width: 300, height: 100, alignment: .center)
+                        
                     }
 
                     if foundSong != nil {
@@ -74,10 +91,12 @@ struct ShazamView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        infoButton
-                            .alert(isPresented: $shouldShowInfoAlert, content: {
-                                infoAlert
-                            })
+                        if (!shouldShowIntroText && !shouldShowStopButton ) {
+                            infoButton
+                                .alert(isPresented: $shouldShowInfoAlert, content: {
+                                    infoAlert
+                                })
+                        }
                     }
                     .padding(EdgeInsets(top: 16, leading: 0, bottom: 0, trailing: 32))
 
@@ -147,8 +166,24 @@ struct ShazamView: View {
                         .shadow(radius: 1)
                 )
         })
-
     }
+    @ViewBuilder
+        private var stopButton: some View {
+            Button(action: {
+                onStopButtonTapped()
+                debugPrint("stop button pressed")
+            }, label: {
+                Image(systemName: "stop")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.white)
+                    .frame(width:80, height: 80, alignment: .center)
+                    .background(Circle().fill(Color.red)
+                        .shadow(radius: 1)
+                    )
+            })
+        }
+
+    
 
     
 
@@ -159,10 +194,12 @@ struct ShazamView: View {
                 shouldShowRippleView = false
                 shouldShowRecordButton = true
                 shouldShowNoResultView = false
+                shouldShowIntroText = true
             case .recordingInProgress:
                 shouldShowRecordButton = false
                 shouldShowRippleView = true
                 shouldShowNoResultView = false
+                shouldShowIntroText = false
                 foundSong = nil
             case .infoAlert:
                 shouldShowInfoAlert = true
@@ -171,6 +208,7 @@ struct ShazamView: View {
             case .noResult:
                 shouldShowRippleView = false
                 shouldShowNoResultView = true
+                shouldShowIntroText = false
                 foundSong = nil
             case .result(let song, let wikipediaModel):
                 withAnimation {
@@ -178,12 +216,21 @@ struct ShazamView: View {
                     foundWikipediaModel = wikipediaModel
                 }
                 shouldShowRippleView = false
+                shouldShowRecordButton = false
+                shouldShowStopButton = false
+                shouldShowIntroText = false
             }
         }.store(in: &cancellables)
     }
 
     private func onRecordButtonTapped() {
+        shouldShowStopButton = true
         shazamViewModel.startListening()
+    }
+    private func onStopButtonTapped() {
+        shazamViewModel.stopListening()
+        shouldShowRippleView = false
+        shouldShowStopButton = false
     }
 
     private func goToPermissionSettings() {

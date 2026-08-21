@@ -65,7 +65,7 @@ public class WikipediaModel : ObservableObject {
             let statusCode = httpResponse.statusCode
             debugPrint(statusCode)
             debugPrint(response)
-            if (statusCode == 404) {
+            if (statusCode == 404 || statusCode == 302) {
                 return false
             }
             else {
@@ -159,15 +159,56 @@ func checkAndAdjustWikiUrls() async throws {
     }
     func cleanUpStringWithRegexes(input:String) ->String {
         var output = input
-        
+        //parens with years
         do {
-            let regex = try  NSRegularExpression(pattern:"\\(.*\\)$", options:[])
+            let regex = try  NSRegularExpression(pattern:"\\(.*\\d{4}.*\\)", options:[])
             
             output = regex.stringByReplacingMatches(in: output,options:[], range: NSRange(output.startIndex..., in: output), withTemplate: "")
         } catch  {
             output = input
             debugPrint("regex failed")
         }
+        //parens with "mix"
+        do {
+            let regex = try  NSRegularExpression(pattern:"\\(.*mix.*\\)", options: .caseInsensitive)
+            
+            output = regex.stringByReplacingMatches(in: output,options:[], range: NSRange(output.startIndex..., in: output), withTemplate: "")
+        } catch  {
+            output = input
+            debugPrint("regex failed")
+        }
+        //parens with "version"
+        do {
+            let regex = try  NSRegularExpression(pattern:"\\(.*version.*\\)", options: .caseInsensitive)
+            
+            output = regex.stringByReplacingMatches(in: output,options:[], range: NSRange(output.startIndex..., in: output), withTemplate: "")
+        } catch  {
+            output = input
+            debugPrint("regex failed")
+        }
+        //parens with "remastered"
+        do {
+            let regex = try  NSRegularExpression(pattern:"\\(.*remastered.*\\)", options: .caseInsensitive)
+            
+            output = regex.stringByReplacingMatches(in: output,options:[], range: NSRange(output.startIndex..., in: output), withTemplate: "")
+        } catch  {
+            output = input
+            debugPrint("regex failed")
+        }
+        //parens with "feat" (i.e. "featured")
+        do {
+            let regex = try  NSRegularExpression(pattern:"\\(.*feat.*\\)", options: .caseInsensitive)
+            
+            output = regex.stringByReplacingMatches(in: output,options:[], range: NSRange(output.startIndex..., in: output), withTemplate: "")
+        } catch  {
+            output = input
+            debugPrint("regex failed")
+        }
+
+        
+        
+        
+        
         do {
             let regex = try  NSRegularExpression(pattern:"\\[.*\\]", options:[])
             
@@ -191,6 +232,7 @@ func checkAndAdjustWikiUrls() async throws {
         var output = input
         
         output.replace(" ", with: "+")
+        output.replace("&", with: "%26")
         return output
     }
     
