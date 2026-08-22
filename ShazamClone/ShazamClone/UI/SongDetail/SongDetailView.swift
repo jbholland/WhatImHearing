@@ -82,7 +82,7 @@ struct SongDetailView: View {
                     } else if song.album == "" { // if not a song retrieved from apple music
                         ZStack {
                             Color.red.frame(height:20, alignment: .center)
-                            Text("Error getting Apple Music Link").foregroundStyle(Color.yellow)                                .frame(width: 300, height: 20, alignment: .center)
+                            Text("Error getting AppleMusicLink").foregroundStyle(Color.yellow)                                .frame(width: 300, height: 20, alignment: .center)
                         }
                     }
                     Text("Wikipedia:") .bold().font(.title).multilineTextAlignment(.center)

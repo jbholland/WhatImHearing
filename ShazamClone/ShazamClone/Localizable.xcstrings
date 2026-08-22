@@ -87,6 +87,9 @@
         }
       }
     },
+    "Key" : {
+      "extractionState" : "manual"
+    },
     "Microphone access not allowed" : {
       "comment" : "Alert title shown when microphone permission is denied.",
       "extractionState" : "manual",
