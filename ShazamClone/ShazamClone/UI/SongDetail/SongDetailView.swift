@@ -45,7 +45,10 @@ struct SongDetailView: View {
                                 .clipped()
                         }
                         else {
-                            Color.red.frame(height:200, alignment: .center)
+                            ZStack {
+                                Color.red.frame(height:200, alignment: .center)
+                                Text("Error getting artwork").foregroundStyle(Color.yellow)                                .frame(width: 300, height: 100, alignment: .center)
+                            }
                         }
                         
                     }
@@ -63,8 +66,7 @@ struct SongDetailView: View {
                     }
                     .padding(.horizontal)
                     .padding(.bottom)
-                    
-                    if song.appleMusicUrl != nil {
+                     if song.appleMusicUrl != nil {
                         if let appleMusicUrl = song.appleMusicUrl {
                             Link(destination: appleMusicUrl, label: {
                                 Text("Play on Apple Music ")
@@ -76,6 +78,11 @@ struct SongDetailView: View {
                                             .shadow(radius: 1)
                                     )
                             })
+                        }
+                    } else if song.album == "" { // if not a song retrieved from apple music
+                        ZStack {
+                            Color.red.frame(height:20, alignment: .center)
+                            Text("Error getting Apple Music Link").foregroundStyle(Color.yellow)                                .frame(width: 300, height: 20, alignment: .center)
                         }
                     }
                     Text("Wikipedia:") .bold().font(.title).multilineTextAlignment(.center)

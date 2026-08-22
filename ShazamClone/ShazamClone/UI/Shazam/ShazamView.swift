@@ -39,7 +39,7 @@ struct ShazamView: View {
             ZStack {
                 VStack(spacing: 20) {
                     if shouldShowIntroText {
-                        Text("What I'm Hearing")
+                        Text("What I’m Hearing")
                             .frame(width: 250, height: 100, alignment: .center)
                             .font(.title2)
                     }
@@ -52,22 +52,25 @@ struct ShazamView: View {
                         )
                         .padding(.horizontal, 48)
                     }
-                    if shouldShowStopButton {
-                        stopButton
-                    }
-
                     if shouldShowNoResultView {
+                        
                         NoResultView {
                             onRecordButtonTapped()
                         }
                     }
+                    
 
-                    if shouldShowRecordButton {
+                    
+
+                    if shouldShowRecordButton && !shouldShowNoResultView  {
                         recordButton
                             .alert(isPresented: $shouldShowRecordPermissionAlert, content: {
                                 permissionAlert
                             })
      
+                    }
+                    if shouldShowStopButton {
+                        stopButton
                     }
                     if shouldShowIntroText{
                         // this is localized
@@ -119,7 +122,7 @@ struct ShazamView: View {
 
     private var infoAlert: Alert {
         Alert(
-            title: Text("What I'm Hearing"),
+            title: Text("What I’m Hearing"),
             message: Text("Tap the record button to listen to music around you and find it on Wikipedia"),
             dismissButton: .default(Text("OK"))
         )
@@ -239,6 +242,9 @@ struct ShazamView: View {
                     mpMediaItemArtwork: nowPlayingItem.artwork,
                     album: nowPlayingItem.albumTitle ?? "No Album"
                 )
+                debugPrint("FROM APPLE MUSIC appleMusicUrl:", song.appleMusicUrl)
+                debugPrint("FROM APPLE MUSIC song.album", song.album)
+              
                 foundWikipediaModel = shazamViewModel.wikipediaModel
                 shazamViewModel.populateFromMediaPlayer(song: song)
             }

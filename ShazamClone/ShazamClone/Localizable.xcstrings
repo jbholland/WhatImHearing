@@ -25,6 +25,38 @@
         }
       }
     },
+    "Error getting AppleMusicLink" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error getting Apple Music Link"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error al obtener el enlace de Apple Music"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur lors de la récupération du lien Apple Music"
+          }
+        }
+      }
+    },
+    "Error getting artwork" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur lors de la récupération de l'œuvre d'art."
+          }
+        }
+      }
+    },
     "Go to Setting" : {
       "comment" : "Button title that opens the app permission settings.",
       "extractionState" : "manual",
@@ -205,14 +237,14 @@
         }
       }
     },
-    "What I'm Hearing" : {
+    "What I’m Hearing" : {
       "comment" : "App name shown in the information alert.",
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "What I'm Hearing"
+            "value" : "What I’m Hearing"
           }
         }
       }

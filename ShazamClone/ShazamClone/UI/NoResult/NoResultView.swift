@@ -12,10 +12,7 @@ struct NoResultView: View {
 
     var body: some View {
         VStack(alignment: .center, spacing: 12) {
-            Image(systemName: "headphones.circle")
-                .font(.system(size: 40, weight: .light))
-                .foregroundColor(Color.black.opacity(0.8))
-
+        
             Text("No Result Found")
                 .font(.headline)
                 .foregroundColor(Color.black.opacity(0.8))

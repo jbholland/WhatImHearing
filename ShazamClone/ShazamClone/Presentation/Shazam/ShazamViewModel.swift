@@ -161,6 +161,9 @@ extension ShazamViewModel: SHSessionDelegate {
                 debugPrint("error calling populateCurrPlaying", error)
             }
             debugPrint("back from populateCurrPlaying")
+            debugPrint("FROM SHAZAM appleMusicUrl:", song.appleMusicUrl)
+            debugPrint("FORM SHAZAM song.album", song.album)
+          
             self.viewState = .result(song: song, wikipediaModel: self.wikipediaModel)
     
         }
