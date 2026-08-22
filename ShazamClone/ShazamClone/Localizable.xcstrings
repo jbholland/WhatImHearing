@@ -49,6 +49,12 @@
     },
     "Error getting artwork" : {
       "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error al recuperar la imagen."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
