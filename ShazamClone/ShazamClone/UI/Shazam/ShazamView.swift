@@ -7,6 +7,7 @@
 import Combine
 import RippleView
 import SwiftUI
+import MediaPlayer
 
 struct ShazamView: View {
     @State private var shouldShowRippleView = false
@@ -225,7 +226,28 @@ struct ShazamView: View {
 
     private func onRecordButtonTapped() {
         shouldShowStopButton = true
-        shazamViewModel.startListening()
+        let musicPlayer = MPMusicPlayerController.systemMusicPlayer
+        if musicPlayer.playbackState == .playing {
+            if let nowPlayingItem = musicPlayer.nowPlayingItem {
+                debugPrint("nowPlayingItem.albumTitle", nowPlayingItem.albumTitle)
+                let song = Song(
+                    title: nowPlayingItem.title ?? "",
+                    artist: nowPlayingItem.artist ?? "",
+                    genres: [],
+                    artworkUrl: nil,
+                    appleMusicUrl: nil,
+                    mpMediaItemArtwork: nowPlayingItem.artwork,
+                    album: nowPlayingItem.albumTitle ?? "No Album"
+                )
+                foundWikipediaModel = shazamViewModel.wikipediaModel
+                shazamViewModel.populateFromMediaPlayer(song: song)
+            }
+        }
+        else {
+                
+                shazamViewModel.startListening()
+            }
+    
     }
     private func onStopButtonTapped() {
         shazamViewModel.stopListening()

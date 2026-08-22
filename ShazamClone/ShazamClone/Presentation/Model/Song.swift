@@ -6,11 +6,13 @@
 //
 
 import Foundation
-
+import MediaPlayer
 struct Song {
     let title: String
     let artist: String
     let genres: [String]
     let artworkUrl: URL?
     let appleMusicUrl: URL?
+    let mpMediaItemArtwork: MPMediaItemArtwork?
+    let album: String
 }

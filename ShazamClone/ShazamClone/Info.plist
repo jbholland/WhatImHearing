@@ -23,7 +23,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow Shazam Clone access to your microphone to listen to music around you</string>
+	<string>Allow What I&apos;m Hearing access to your microphone to listen to music around you</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Allow What I&apos;m Hearing  to access your Apple Music if you are listening to it</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

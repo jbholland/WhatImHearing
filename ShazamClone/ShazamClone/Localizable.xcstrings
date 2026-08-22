@@ -217,6 +217,22 @@
         }
       }
     },
+    "Wikipedia cannot find this album" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wikipedia no encuentra a este disco."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wikipedia ne trouve pas cet disque."
+          }
+        }
+      }
+    },
     "Wikipedia cannot find this artist" : {
       "comment" : "Alert message shown when the artist Wikipedia page cannot be opened.",
       "extractionState" : "manual",
