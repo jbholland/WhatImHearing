@@ -18,7 +18,6 @@ class ShazamViewModel: NSObject, ObservableObject {
     private let audioEngine = AVAudioEngine()
     var wikipediaModel = WikipediaModel()
     let wikipath = ".wikipedia.org/wiki/"
-    let wikipathSearch = ".wikipedia.org/"
     private var showArtistCantOpen = false
     private var showTitleCantOpen = false
     private var wikiUrl =  "https://en.wikipedia.org/wiki/"
@@ -121,7 +120,7 @@ class ShazamViewModel: NSObject, ObservableObject {
     
     func populateFromMediaPlayer(song:Song) {
         self.wikiUrl =   "https://" + getPreferredLanguage(locale: self.locale) + self.wikipath
-        self.wikiUrlSearch = "https://" + getPreferredLanguage(locale: self.locale) + self.wikipathSearch
+        self.wikiUrlSearch = "https://" + getPreferredLanguage(locale: self.locale) + self.wikipath
         self.wikipediaModel.wikiUrl = self.wikiUrl
         self.wikipediaModel.wikiUrlSearch = self.wikiUrlSearch
         debugPrint("running populateFromMediaPlayer")
@@ -150,7 +149,7 @@ extension ShazamViewModel: SHSessionDelegate {
         )
         DispatchQueue.main.async {
             self.wikiUrl =   "https://" + getPreferredLanguage(locale: self.locale) + self.wikipath
-            self.wikiUrlSearch = "https://" + getPreferredLanguage(locale: self.locale) + self.wikipathSearch
+            self.wikiUrlSearch = "https://" + getPreferredLanguage(locale: self.locale) + self.wikipath
             self.wikipediaModel.wikiUrl = self.wikiUrl
             self.wikipediaModel.wikiUrlSearch = self.wikiUrlSearch
             debugPrint("running populateCurrPlaying")

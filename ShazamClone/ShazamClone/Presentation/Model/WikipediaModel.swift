@@ -83,7 +83,7 @@ public class WikipediaModel : ObservableObject {
     
     func buildSearchURL(searchString:String) -> String {
         
-        return wikiUrlSearch + "w/index.php?search=" + fixStringForSearchURL(input: searchString) + "&title=Special:Search&profile=advanced&fulltext=1&ns0=1"
+        return wikiUrlSearch + "?search=" + fixStringForSearchURL(input: searchString) + "&title=Special:Search&profile=advanced&fulltext=1&ns0=1"
         
      
     }
