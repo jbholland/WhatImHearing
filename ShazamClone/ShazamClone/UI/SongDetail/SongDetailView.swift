@@ -36,23 +36,28 @@ struct SongDetailView: View {
                         }.frame(height: 200, alignment: .center)
                         
                     } else {
-                        if  song.mpMediaItemArtwork != nil  {
-                            let image = song.mpMediaItemArtwork!.image(at:CGSize(width: 500, height: 200))
-                            
-                            Image(uiImage: (image ?? UIImage(systemName:"photo"))!).resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(maxHeight: 200)
-                                .clipped()
-                        }
-                        else {
+                        if  let mediaItemArtwork = song.mpMediaItemArtwork {
+                            if let songImage = mediaItemArtwork.image(at: CGSize( width: 500, height:200))
+                            {
+                                    Image(uiImage:songImage).resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(maxHeight: 200).clipped()
+                                } else {
+                                    ZStack {
+                                        Color(UIColor.systemRed).frame(height:200, alignment: .center)
+                                        Text("Error getting artwork from media item artwork").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: 300, height: 100, alignment: .center)
+                                        
+                                    }
+                                }
+                            }
+                            else {
                             ZStack {
                                 Color(UIColor.systemRed).frame(height:200, alignment: .center)
-                                Text("Error getting artwork").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: 300, height: 100, alignment: .center)
+                                Text("Error getting media item artwork").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: 300, height: 100, alignment: .center)
+                                
                             }
                         }
-                        
                     }
-                    
                     VStack(alignment: .leading) {
                         Text(song.title)
                             .font(.headline)

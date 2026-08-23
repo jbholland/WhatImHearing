@@ -48,6 +48,7 @@
       }
     },
     "Error getting artwork" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -59,6 +60,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Erreur lors de la récupération de l'œuvre d'art."
+          }
+        }
+      }
+    },
+    "Error getting artwork from media item artwork" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error getting artwork from media item artwork."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Error al obtener la imagen de la imagen del elemento multimedia."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur lors de la récupération de l'illustration à partir de l'élément multimédia."
+          }
+        }
+      }
+    },
+    "Error getting media item artwork" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error getting media item artwork."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error al obtener la imagen del elemento multimedia."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erreur lors de la récupération de l'illustration de l'élément multimédia."
           }
         }
       }
