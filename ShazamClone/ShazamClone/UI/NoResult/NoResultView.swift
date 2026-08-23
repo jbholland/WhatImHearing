@@ -15,7 +15,7 @@ struct NoResultView: View {
         
             Text("No Result Found")
                 .font(.headline)
-                .foregroundColor(Color.black.opacity(0.8))
+                .foregroundColor(Color(UIColor.systemGray)).opacity(0.8)
 
             Button(action: {
                 buttonAction()
@@ -25,7 +25,7 @@ struct NoResultView: View {
                     .foregroundColor(.white)
                     .frame(width: 200, height: 48, alignment: .center)
                     .background(
-                        RoundedRectangle(cornerRadius: 24).fill(Color.blue)
+                        RoundedRectangle(cornerRadius: 24).fill(Color(UIColor.systemBlue))
                             .shadow(radius: 1)
                     )
             })

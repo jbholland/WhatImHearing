@@ -29,7 +29,7 @@ struct SongDetailView: View {
                                     .frame(maxHeight: 200)
                                     .clipped()
                             } else if phase.error != nil {
-                                Color.blue
+                                Color(UIColor.systemBlue)
                             } else {
                                 ProgressView()
                             }
@@ -46,8 +46,8 @@ struct SongDetailView: View {
                         }
                         else {
                             ZStack {
-                                Color.red.frame(height:200, alignment: .center)
-                                Text("Error getting artwork").foregroundStyle(Color.yellow)                                .frame(width: 300, height: 100, alignment: .center)
+                                Color(UIColor.systemRed).frame(height:200, alignment: .center)
+                                Text("Error getting artwork").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: 300, height: 100, alignment: .center)
                             }
                         }
                         
@@ -56,11 +56,11 @@ struct SongDetailView: View {
                     VStack(alignment: .leading) {
                         Text(song.title)
                             .font(.headline)
-                            .foregroundColor(Color.black)
+                            .foregroundColor(Color(UIColor.label))
                         
                         Text(song.artist)
                             .font(.subheadline)
-                            .foregroundColor(Color.black)
+                            .foregroundColor(Color(UIColor.label))
                         
                         
                     }
@@ -74,15 +74,15 @@ struct SongDetailView: View {
                                     .foregroundColor(.white)
                                     .frame(width: geometry.size.width - 64, height: 48)
                                     .background(
-                                        RoundedRectangle(cornerRadius: 10).fill(Color.red)
+                                        RoundedRectangle(cornerRadius: 10).fill(Color(UIColor.systemRed))
                                             .shadow(radius: 1)
                                     )
                             })
                         }
                     } else if song.album == "" { // if not a song retrieved from apple music
                         ZStack {
-                            Color.red.frame(height:20, alignment: .center)
-                            Text("Error getting AppleMusicLink").foregroundStyle(Color.yellow)                                .frame(width: 300, height: 20, alignment: .center)
+                            Color(UIColor.systemRed).frame(height:20, alignment: .center)
+                            Text("Error getting AppleMusicLink").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: 300, height: 20, alignment: .center)
                         }
                     }
                     Text("Wikipedia:") .bold().font(.title).multilineTextAlignment(.center)
@@ -145,8 +145,8 @@ struct SongDetailView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .background(
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.white)
-                        .shadow(color: Color.gray.opacity(0.8), radius: 0.8)
+                        .fill(Color(UIColor.systemBackground))
+                        .shadow(color: Color(UIColor.systemGray).opacity(0.8), radius: 0.8)
                 )
                 .padding()
             }

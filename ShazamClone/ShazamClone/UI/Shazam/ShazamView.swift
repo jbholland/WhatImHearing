@@ -34,7 +34,7 @@ struct ShazamView: View {
     
     var body: some View {
         ZStack {
-            Color.white
+            Color.init(UIColor.systemBackground)
 
             ZStack {
                 VStack(spacing: 20) {
@@ -47,7 +47,7 @@ struct ShazamView: View {
                         RippleView(
                             style: .solid,
                             rippleCount: 5,
-                            tintColor: Color.blue,
+                            tintColor: Color(UIColor.systemBlue),
                             timeIntervalBetweenRipples: 0.18
                         )
                         .padding(.horizontal, 48)
@@ -151,7 +151,7 @@ struct ShazamView: View {
                 .resizable()
                 .frame(width: 20, height: 20, alignment: .center)
                 .scaledToFit()
-                .foregroundColor(Color.black.opacity(0.7))
+                .foregroundColor(Color(UIColor.label))
         })
 
     }
@@ -166,7 +166,7 @@ struct ShazamView: View {
                 .foregroundColor(.white)
                 .frame(width: 100, height: 100, alignment: .center)
                 .background(
-                    Circle().fill(Color.blue)
+                    Circle().fill(Color(UIColor.systemBlue))
                         .shadow(radius: 1)
                 )
         })
@@ -181,7 +181,7 @@ struct ShazamView: View {
                     .font(.system(size: 18, weight: .bold))
                     .foregroundColor(.white)
                     .frame(width:80, height: 80, alignment: .center)
-                    .background(Circle().fill(Color.red)
+                    .background(Circle().fill(Color(UIColor.systemRed))
                         .shadow(radius: 1)
                     )
             })
