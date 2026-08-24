@@ -153,14 +153,10 @@ extension ShazamViewModel: SHSessionDelegate {
             self.wikipediaModel.wikiUrl = self.wikiUrl
             self.wikipediaModel.wikiUrlSearch = self.wikiUrlSearch
             debugPrint("running populateCurrPlaying")
-            do {
-                try self.wikipediaModel.populateCurrPlaying( title: song.title, artist: song.artist, album: song.album)
-            }
-            catch let error {
-                debugPrint("error calling populateCurrPlaying", error)
-            }
+            self.wikipediaModel.populateCurrPlaying( title: song.title, artist: song.artist, album: song.album)
+            
             debugPrint("back from populateCurrPlaying")
-            debugPrint("FROM SHAZAM appleMusicUrl:", song.appleMusicUrl)
+            debugPrint("FROM SHAZAM appleMusicUrl:", song.appleMusicUrl ?? "can't print appleMusicURL")
             debugPrint("FORM SHAZAM song.album", song.album)
           
             self.viewState = .result(song: song, wikipediaModel: self.wikipediaModel)

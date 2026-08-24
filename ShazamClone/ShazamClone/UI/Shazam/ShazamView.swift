@@ -109,7 +109,7 @@ struct ShazamView: View {
 
            
             }
-            .padding(EdgeInsets(top: Constants.topInset, leading: 0, bottom: Constants.bottomInset, trailing: 0))
+            .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
         }
         .onAppear(perform: {
             bindViewModel()
@@ -232,7 +232,7 @@ struct ShazamView: View {
         let musicPlayer = MPMusicPlayerController.systemMusicPlayer
         if musicPlayer.playbackState == .playing {
             if let nowPlayingItem = musicPlayer.nowPlayingItem {
-                debugPrint("nowPlayingItem.albumTitle", nowPlayingItem.albumTitle)
+                debugPrint("nowPlayingItem.albumTitle", nowPlayingItem.albumTitle as Any)
                 let song = Song(
                     title: nowPlayingItem.title ?? "",
                     artist: nowPlayingItem.artist ?? "",
@@ -242,7 +242,7 @@ struct ShazamView: View {
                     mpMediaItemArtwork: nowPlayingItem.artwork,
                     album: nowPlayingItem.albumTitle ?? "No Album"
                 )
-                debugPrint("FROM APPLE MUSIC appleMusicUrl:", song.appleMusicUrl)
+                debugPrint("FROM APPLE MUSIC appleMusicUrl:", song.appleMusicUrl as Any)
                 debugPrint("FROM APPLE MUSIC song.album", song.album)
               
                 foundWikipediaModel = shazamViewModel.wikipediaModel
@@ -268,11 +268,6 @@ struct ShazamView: View {
         }
     }
 
-    enum Constants {
-        // Temporary hack for the iOS 15 weird top and bottom inset
-        static let topInset: CGFloat = UIApplication.shared.keyWindow?.safeAreaInsets.top ?? UIApplication.shared.statusBarFrame.size.height
-        static let bottomInset: CGFloat = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 20
-    }
 }
 
 struct ShazamView_Previews: PreviewProvider {
