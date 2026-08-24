@@ -25,33 +25,33 @@ struct SongDetailView: View {
                             if let image = phase.image {
                                 image.resizable()
                                     .scaledToFit()
-                                    .frame(maxHeight: geometry.size.height / 2)
+                                    .frame(maxHeight: geometry.size.height / 2.2)
                                 
                             } else if phase.error != nil {
                                 Color(UIColor.systemBlue)
                             } else {
                                 ProgressView()
                             }
-                        }.frame(height: geometry.size.height / 2, alignment: .center)
+                        }.frame(height: geometry.size.height / 2.2, alignment: .center)
                         
                     } else {
                         if  let mediaItemArtwork = song.mpMediaItemArtwork {
-                            if let songImage = mediaItemArtwork.image(at: CGSize( width: 500, height:geometry.size.height / 2))
+                            if let songImage = mediaItemArtwork.image(at: CGSize( width: 500, height:geometry.size.height / 2.2))
                             {
                                 Image(uiImage:songImage).resizable()
                                     .scaledToFit()
-                                    .frame(maxHeight: geometry.size.height / 2)
+                                    .frame(maxHeight: geometry.size.height / 2.2)
                             } else {
                                 ZStack {
-                                    Color(UIColor.systemRed).frame(height:geometry.size.height / 2, alignment: .center)
-                                    Text("Error getting artwork from media item artwork").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: geometry.size.height / 2, height: 100, alignment: .center)
+                                    Color(UIColor.systemRed).frame(height:geometry.size.height / 2.2, alignment: .center)
+                                    Text("Error getting artwork from media item artwork").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: geometry.size.height / 2.2, height: 100, alignment: .center)
                                     
                                 }
                             }
                         }
                         else {
                             ZStack {
-                                Color(UIColor.systemRed).frame(height:geometry.size.height / 2, alignment: .center)
+                                Color(UIColor.systemRed).frame(height:geometry.size.height / 2.2, alignment: .center)
                                 Text("Error getting media item artwork").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: geometry.size.height / 4, height: 100, alignment: .center)
                                 
                             }
@@ -104,6 +104,7 @@ struct SongDetailView: View {
                             }
                         }
                         .buttonStyle(.borderedProminent)
+                        .padding(.bottom)
                     
                     
                     Button(wikipediaModel.currentArtist){
@@ -138,9 +139,8 @@ struct SongDetailView: View {
                             }
                         }
                         .buttonStyle(.borderedProminent)
-                        
-                        
                         .padding(.bottom)
+       
                         
                     }
                     

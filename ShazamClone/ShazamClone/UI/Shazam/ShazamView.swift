@@ -92,7 +92,7 @@ struct ShazamView: View {
                             Spacer()
                             recordButton
                         }
-                        .padding(.vertical, 64)
+                        .padding(.vertical)
                     }
 
                 }
@@ -100,21 +100,17 @@ struct ShazamView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        if (!shouldShowIntroText && !shouldShowStopButton ) {
-                            infoButton
-                                .alert(isPresented: $shouldShowInfoAlert, content: {
-                                    infoAlert
-                                })
-                        }
+                        // this is left over from the info button but removing it
+                        // ruins everything
                     }
-                    .padding(EdgeInsets(top: 16, leading: 0, bottom: 0, trailing: 32))
+                    .padding(EdgeInsets(top: 16, leading: 0, bottom: 10, trailing: 32))
 
                     Spacer()
                 }
 
            
             }
-            .padding(EdgeInsets(top: 40, leading: 0, bottom: 10, trailing: 0))
+            .padding(EdgeInsets(top: 30, leading: 0, bottom: 10, trailing: 0))
         }
         .onAppear(perform: {
             bindViewModel()
