@@ -12,7 +12,7 @@ func getPreferredLanguage(locale:Locale)->String {
     let langCode = String(locale.identifier.dropLast(3))
     return langCode
 }
-class ShazamViewModel: NSObject, ObservableObject {
+@MainActor class ShazamViewModel: NSObject, ObservableObject {
     private var locale=Locale.current
     private var session = SHSession()
     private let audioEngine = AVAudioEngine()
@@ -22,11 +22,12 @@ class ShazamViewModel: NSObject, ObservableObject {
     private var showTitleCantOpen = false
     private var wikiUrl =  "https://en.wikipedia.org/wiki/"
     private var wikiUrlSearch = "https://en.wikipedia.org/"
-@Published var viewState: ViewState = .initial
+    @Published var viewState: ViewState = .initial
     
-    override init() {
+    override init( ) {
+        
         super.init()
-        session.delegate = self
+         session.delegate = self
     }
     
     func showInfo() {
@@ -51,9 +52,7 @@ class ShazamViewModel: NSObject, ObservableObject {
         case .denied:
             viewState = .recordPermissionSettingsAlert
         case .granted:
-            DispatchQueue.global(qos: .background).async {
-                self.proceedWithRecording()
-            }
+            proceedWithRecording()
         @unknown default:
             requestRecordPermission(audioSession: audioSession)
         }
@@ -72,11 +71,9 @@ class ShazamViewModel: NSObject, ObservableObject {
     
     private func requestRecordPermission(audioSession: AVAudioSession) {
         audioSession.requestRecordPermission { [weak self] status in
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 if status {
-                    DispatchQueue.global(qos: .background).async {
-                        self?.proceedWithRecording()
-                    }
+                    self?.proceedWithRecording()
                 } else {
                     debugPrint("Permission denied")
                 }
@@ -112,31 +109,34 @@ class ShazamViewModel: NSObject, ObservableObject {
         }
     }
     
-    private func stopRecording() {
-        self.viewState = .initial
+    private func stopRecording(resetViewState: Bool = true) {
+        if resetViewState {
+            self.viewState = .initial
+        }
         audioEngine.stop()
     }
     
     
-    func populateFromMediaPlayer(song:Song) {
+    func populateFromMediaPlayer(song:Song) async {
         self.wikiUrl =   "https://" + getPreferredLanguage(locale: self.locale) + self.wikipath
         self.wikiUrlSearch = "https://" + getPreferredLanguage(locale: self.locale) + self.wikipath
         self.wikipediaModel.wikiUrl = self.wikiUrl
         self.wikipediaModel.wikiUrlSearch = self.wikiUrlSearch
         debugPrint("running populateFromMediaPlayer")
         debugPrint("song.album in populateFromMediaPlayer", song.album)
-       self.wikipediaModel.populateCurrPlaying( title: song.title, artist: song.artist, album: song.album )
+        await self.wikipediaModel.populateCurrPlaying(title: song.title, artist: song.artist, album: song.album)
         debugPrint("back from populateFromMediaPlayer")
-        self.viewState = .result(song: song, wikipediaModel: self.wikipediaModel)
+        self.viewState = .result(song: song)
+        
         
     }
 }
-extension ShazamViewModel: SHSessionDelegate {
+extension ShazamViewModel: @preconcurrency SHSessionDelegate {
     func session(_ session: SHSession, didFind match: SHMatch) {
         guard let firstMatch = match.mediaItems.first else {
             return
         }
-        stopRecording()
+        stopRecording(resetViewState: false)
 
         let song = Song(
             title: firstMatch.title ?? "",
@@ -147,39 +147,36 @@ extension ShazamViewModel: SHSessionDelegate {
             mpMediaItemArtwork: nil,
             album: ""
         )
-        DispatchQueue.main.async {
-            self.wikiUrl =   "https://" + getPreferredLanguage(locale: self.locale) + self.wikipath
+        Task { @MainActor in
+            self.wikiUrl = "https://" + getPreferredLanguage(locale: self.locale) + self.wikipath
             self.wikiUrlSearch = "https://" + getPreferredLanguage(locale: self.locale) + self.wikipath
             self.wikipediaModel.wikiUrl = self.wikiUrl
             self.wikipediaModel.wikiUrlSearch = self.wikiUrlSearch
             debugPrint("running populateCurrPlaying")
-            self.wikipediaModel.populateCurrPlaying( title: song.title, artist: song.artist, album: song.album)
+            await self.wikipediaModel.populateCurrPlaying(title: song.title, artist: song.artist, album: song.album)
             
             debugPrint("back from populateCurrPlaying")
             debugPrint("FROM SHAZAM appleMusicUrl:", song.appleMusicUrl ?? "can't print appleMusicURL")
             debugPrint("FORM SHAZAM song.album", song.album)
-          
-            self.viewState = .result(song: song, wikipediaModel: self.wikipediaModel)
-    
+            
+            self.viewState = .result(song: song)
         }
     }
 
     func session(_ session: SHSession, didNotFindMatchFor signature: SHSignature, error: Error?) {
         debugPrint(error?.localizedDescription ?? "")
-        stopRecording()
-        DispatchQueue.main.async {
-            self.viewState = .noResult
-        }
+        stopRecording(resetViewState: false)
+        self.viewState = .noResult
     }
 }
 
 extension ShazamViewModel {
-    enum ViewState {
+enum ViewState {
         case initial
         case recordingInProgress
         case infoAlert
         case recordPermissionSettingsAlert
         case noResult
-        case result(song: Song, wikipediaModel:WikipediaModel)
+        case result(song: Song)
     }
 }

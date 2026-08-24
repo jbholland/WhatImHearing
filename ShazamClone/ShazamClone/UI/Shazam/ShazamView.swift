@@ -18,8 +18,10 @@ struct ShazamView: View {
     @State private var shouldShowIntroText = false
     @State private var shouldShowRecordPermissionAlert = false
     @State private var shouldShowNoResultView = false
+    @State private var shouldShowResultView = false
     @State private var foundSong: Song!
-    @State private var foundWikipediaModel = WikipediaModel()
+    //private  var  foundWikipediaModel:WikipediaModel
+    
     @State private var cancellables: Set<AnyCancellable> = []
     @EnvironmentObject private var shazamViewModel: ShazamViewModel
     @Environment(\.locale) private var locale
@@ -30,6 +32,7 @@ struct ShazamView: View {
     @State private var showArtistCantOpen = false
     @State private var showTitleCantOpen = false
     @State private var showAlbumCantOpen = false
+  
     
 
     
@@ -39,12 +42,12 @@ struct ShazamView: View {
 
             ZStack {
                 VStack(spacing: 20) {
-                    if shouldShowIntroText {
+                    if shouldShowIntroText && !shouldShowResultView {
                         Text("What I’m Hearing")
                             .frame(width: 250, height: 100, alignment: .center)
                             .font(.title2)
                     }
-                    if shouldShowRippleView {
+                    if shouldShowRippleView && !shouldShowResultView {
                         RippleView(
                             style: .solid,
                             rippleCount: 5,
@@ -63,17 +66,18 @@ struct ShazamView: View {
 
                     
 
-                    if shouldShowRecordButton && !shouldShowNoResultView  {
+                    if shouldShowRecordButton && !shouldShowNoResultView  && !shouldShowResultView {
                         recordButton
                             .alert(isPresented: $shouldShowRecordPermissionAlert, content: {
                                 permissionAlert
                             })
      
                     }
-                    if shouldShowStopButton {
+                    if shouldShowStopButton && !shouldShowResultView {
                         stopButton
+                            .padding(.vertical, 24)
                     }
-                    if shouldShowIntroText{
+                    if shouldShowIntroText && !shouldShowResultView{
                         // this is localized
                         Text("Tap the record button to listen to music around you and find it on Wikipedia")
                             .frame(width: 300, height: 100, alignment: .center)
@@ -83,7 +87,7 @@ struct ShazamView: View {
                     if foundSong != nil {
                         VStack {
                             withAnimation(.easeInOut) {
-                                SongDetailView(song: foundSong, wikipediaModel: foundWikipediaModel)
+                                SongDetailView(song: foundSong, wikipediaModel: shazamViewModel.wikipediaModel)
                             }
                             Spacer()
                             recordButton
@@ -192,19 +196,25 @@ struct ShazamView: View {
 
     
 
-    private func bindViewModel() {
+    func bindViewModel() {
+        debugPrint("bindViewModel called")
         shazamViewModel.$viewState.sink { viewState in
+
             switch viewState {
             case .initial:
                 shouldShowRippleView = false
                 shouldShowRecordButton = true
+                shouldShowStopButton = false
                 shouldShowNoResultView = false
+                shouldShowResultView = false
                 shouldShowIntroText = true
             case .recordingInProgress:
                 shouldShowRecordButton = false
+                shouldShowStopButton = true
                 shouldShowRippleView = true
                 shouldShowNoResultView = false
                 shouldShowIntroText = false
+                shouldShowResultView = false
                 foundSong = nil
             case .infoAlert:
                 shouldShowInfoAlert = true
@@ -212,24 +222,26 @@ struct ShazamView: View {
                 shouldShowRecordPermissionAlert = true
             case .noResult:
                 shouldShowRippleView = false
+                shouldShowStopButton = false
                 shouldShowNoResultView = true
                 shouldShowIntroText = false
+                shouldShowResultView = false
                 foundSong = nil
-            case .result(let song, let wikipediaModel):
-                withAnimation {
-                    foundSong = song
-                    foundWikipediaModel = wikipediaModel
-                }
+            case .result(let song):
+                
                 shouldShowRippleView = false
                 shouldShowRecordButton = false
                 shouldShowStopButton = false
                 shouldShowIntroText = false
+                shouldShowResultView = true
+                withAnimation {
+                    foundSong = song
+                }
             }
-        }.store(in: &cancellables)
+        } .store(in: &cancellables)
+        
     }
-
     private func onRecordButtonTapped() {
-        shouldShowStopButton = true
         let musicPlayer = MPMusicPlayerController.systemMusicPlayer
         if musicPlayer.playbackState == .playing  && SKCloudServiceController.authorizationStatus() == .authorized {
             if let nowPlayingItem = musicPlayer.nowPlayingItem {
@@ -246,8 +258,11 @@ struct ShazamView: View {
                 debugPrint("FROM APPLE MUSIC appleMusicUrl:", song.appleMusicUrl as Any)
                 debugPrint("FROM APPLE MUSIC song.album", song.album)
               
-                foundWikipediaModel = shazamViewModel.wikipediaModel
-                shazamViewModel.populateFromMediaPlayer(song: song)
+                //foundWikipediaModel = shazamViewModel.wikipediaModel
+                Task {
+                    await shazamViewModel.populateFromMediaPlayer(song: song)
+                    self.bindViewModel()
+                }
             }
         }
         else {

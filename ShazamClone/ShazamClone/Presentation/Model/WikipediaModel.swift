@@ -15,22 +15,22 @@ func titleCase(_ text: String) -> String {
         "for", "so", "yet",
         "as", "at", "by", "in", "of", "on", "to"
     ]
-
+    
     let words = text.split(separator: " ", omittingEmptySubsequences: true)
-
+    
     return words.enumerated().map { index, word in
         let lowerWord = word.lowercased()
-
+        
         // Always capitalize the first and last words.
         if index == 0 || index == words.count - 1 {
             return lowerWord.prefix(1).uppercased() + lowerWord.dropFirst()
         }
-
+        
         // Leave minor words lowercase.
         if minorWords.contains(lowerWord) {
             return lowerWord
         }
-
+        
         // Capitalize the first letter of major words.
         return lowerWord.prefix(1).uppercased() + lowerWord.dropFirst()
     }.joined(separator: " ")
@@ -49,7 +49,7 @@ public class WikipediaModel : ObservableObject {
     @Published var currentAlbumURLForWiki : URL = URL(string:"https://www.wikipedia.org")!
     
     let  safeUrl = URL(string:"https://en.wikipedia.org")!
-   
+    
     public var wikiUrl =  "https://en.wikipedia.org/wiki/"
     
     public var wikiUrlSearch = "https://en.wikipedia.org/"
@@ -85,14 +85,10 @@ public class WikipediaModel : ObservableObject {
         
         return wikiUrlSearch + "?search=" + fixStringForSearchURL(input: searchString) + "&title=Special:Search&profile=advanced&fulltext=1&ns0=1"
         
-     
+        
     }
-func checkAndAdjustWikiUrls() async throws {
+    func checkAndAdjustWikiUrls() async throws {
         debugPrint("entering checkAndAdjustWikiUrls", currentAlbum)
-        
-           
-        
-        
         debugPrint("trying initial artist URL")
         do {
             canOpenArtist = try await checkIfWikiCanOpen(url: currentArtistURLForWiki)
@@ -108,13 +104,11 @@ func checkAndAdjustWikiUrls() async throws {
             currentArtistURLForWiki = URL(string:wikiUrl + currentArtistForWiki) ?? safeUrl
             Swift.debugPrint("trying title case artist URL")
             do {
-                
-                
                 canOpenArtist = try await checkIfWikiCanOpen(url: currentArtistURLForWiki)
             }
             catch {
-               debugPrint("error in checkifWikiCanopen title case artist URL")
-           }
+                debugPrint("error in checkifWikiCanopen title case artist URL")
+            }
             if (!canOpenArtist) {
                 Swift.debugPrint("creating artist search URL")
                 // try and use search URL
@@ -124,13 +118,10 @@ func checkAndAdjustWikiUrls() async throws {
                 do {
                     canOpenArtist = try await checkIfWikiCanOpen(url:currentArtistURLForWiki)
                 }
-  
-                    catch {
-                       debugPrint("error in checkifWikiCanopen search artist URL")
-                   }
-                
+                catch {
+                    debugPrint("error in checkifWikiCanopen search artist URL")
+                }
             }
-            
         }
         debugPrint("trying initial title URL")
         do {
@@ -149,7 +140,6 @@ func checkAndAdjustWikiUrls() async throws {
             canOpenTitle = try await checkIfWikiCanOpen(url: currentTitleURLForWiki)
             if (!canOpenTitle) {
                 debugPrint("creating title search URL")
-                
                 // try and use search URL
                 debugPrint("Title Search URL:" + buildSearchURL(searchString: currentTitle))
                 currentTitleURLForWiki = URL(string:buildSearchURL(searchString: currentTitle)) ?? safeUrl
@@ -157,31 +147,31 @@ func checkAndAdjustWikiUrls() async throws {
                 canOpenTitle = try await checkIfWikiCanOpen(url:currentTitleURLForWiki)
             }
         }
-    debugPrint("trying initial album URL")
-    do {
-        canOpenAlbum = try await checkIfWikiCanOpen(url: currentAlbumURLForWiki)
-    }
-    catch  let error {
-        debugPrint("error in checkIfWikiCanOpen initial album URL:", error.localizedDescription)
-    }
-    if (!canOpenAlbum) {
-        debugPrint("modifying album with title case")
-        // try with title case
-        currentAlbum = titleCase(currentAlbum)
-        let currentAlbumForWiki = fixStringForDirectURL(input: cleanUpStringWithRegexes(input:currentAlbum))
-        currentAlbumURLForWiki = URL(string:wikiUrl + currentAlbumForWiki) ?? safeUrl
-        debugPrint("trying title case album URL")
-        canOpenAlbum = try await checkIfWikiCanOpen(url: currentAlbumURLForWiki)
-        if (!canOpenAlbum) {
-            debugPrint("creating album search URL")
-            
-            // try and use search URL
-            debugPrint("Album Search URL:" + buildSearchURL(searchString: currentAlbum))
-            currentAlbumURLForWiki = URL(string:buildSearchURL(searchString: currentAlbum)) ?? safeUrl
-            debugPrint("trying search URL for album " + currentAlbumURLForWiki.absoluteString)
-            canOpenAlbum = try await checkIfWikiCanOpen(url:currentAlbumURLForWiki)
+        debugPrint("trying initial album URL")
+        do {
+            canOpenAlbum = try await checkIfWikiCanOpen(url: currentAlbumURLForWiki)
         }
-    }
+        catch  let error {
+            debugPrint("error in checkIfWikiCanOpen initial album URL:", error.localizedDescription)
+        }
+        if (!canOpenAlbum) {
+            debugPrint("modifying album with title case")
+            // try with title case
+            currentAlbum = titleCase(currentAlbum)
+            let currentAlbumForWiki = fixStringForDirectURL(input: cleanUpStringWithRegexes(input:currentAlbum))
+            currentAlbumURLForWiki = URL(string:wikiUrl + currentAlbumForWiki) ?? safeUrl
+            debugPrint("trying title case album URL")
+            canOpenAlbum = try await checkIfWikiCanOpen(url: currentAlbumURLForWiki)
+            if (!canOpenAlbum) {
+                debugPrint("creating album search URL")
+                
+                // try and use search URL
+                debugPrint("Album Search URL:" + buildSearchURL(searchString: currentAlbum))
+                currentAlbumURLForWiki = URL(string:buildSearchURL(searchString: currentAlbum)) ?? safeUrl
+                debugPrint("trying search URL for album " + currentAlbumURLForWiki.absoluteString)
+                canOpenAlbum = try await checkIfWikiCanOpen(url:currentAlbumURLForWiki)
+            }
+        }
         debugPrint("returning from checkAndAdjustWikiUrls")
     }
     func cleanUpStringWithRegexes(input:String) ->String {
@@ -240,7 +230,7 @@ func checkAndAdjustWikiUrls() async throws {
             output = input
             debugPrint("regex failed")
         }
-
+        
         
         
         
@@ -273,27 +263,26 @@ func checkAndAdjustWikiUrls() async throws {
     }
     
     
-func populateCurrPlaying(title:String, artist:String, album:String) {
-    (currentTitle, currentArtist, currentAlbum)  = (title, artist,album)
-          
+    func populateCurrPlaying(title:String, artist:String, album:String) async {
+        (currentTitle, currentArtist, currentAlbum)  = (title, artist,album)
+        
         let currentTitleForWiki = fixStringForDirectURL(input: cleanUpStringWithRegexes(input:currentTitle))
         let currentArtistForWiki = fixStringForDirectURL(input:cleanUpStringWithRegexes(input: currentArtist))
-    let currentAlbumForWiki =  fixStringForDirectURL(input:cleanUpStringWithRegexes(input: currentAlbum))
+        let currentAlbumForWiki =  fixStringForDirectURL(input:cleanUpStringWithRegexes(input: currentAlbum))
         
         
         currentTitleURLForWiki = URL(string:wikiUrl + currentTitleForWiki) ?? safeUrl
         currentArtistURLForWiki = URL(string:wikiUrl + currentArtistForWiki) ?? safeUrl
-    currentAlbumURLForWiki = URL(string:wikiUrl + currentAlbumForWiki) ?? safeUrl
-        Task.synchronous(operation:  {
+        currentAlbumURLForWiki = URL(string:wikiUrl + currentAlbumForWiki) ?? safeUrl
             do {
                 try await  self.checkAndAdjustWikiUrls()
             }
             catch let error{
-                debugPrint("error checking wikipedia urls", error )
+                Swift.debugPrint("error checking wikipedia urls", error )
             }
             
-        }
-                         )
+        
+        
         debugPrint("returning from populateCurrPlaying")
     }
     
@@ -304,12 +293,12 @@ extension Task where Failure == Error {
     /// - Note: This function blocks the thread until the given operation is finished. The caller is responsible for managing multithreading.
     static func synchronous(priority: TaskPriority? = nil, operation: @escaping @Sendable () async throws -> Success) {
         let semaphore = DispatchSemaphore(value: 0)
-
+        
         Task(priority: priority) {
             defer { semaphore.signal() }
             return try await operation()
         }
-
+        
         semaphore.wait()
     }
 }

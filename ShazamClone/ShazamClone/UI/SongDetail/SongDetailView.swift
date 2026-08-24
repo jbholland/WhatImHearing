@@ -120,6 +120,7 @@ struct SongDetailView: View {
                             }
                         }
                         .buttonStyle(.borderedProminent)
+                        .padding(.bottom)
                     
                     if wikipediaModel.currentAlbum != "" {
                         Button(wikipediaModel.currentAlbum){
