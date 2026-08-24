@@ -8,6 +8,7 @@ import Combine
 import RippleView
 import SwiftUI
 import MediaPlayer
+import StoreKit
 
 struct ShazamView: View {
     @State private var shouldShowRippleView = false
@@ -230,7 +231,7 @@ struct ShazamView: View {
     private func onRecordButtonTapped() {
         shouldShowStopButton = true
         let musicPlayer = MPMusicPlayerController.systemMusicPlayer
-        if musicPlayer.playbackState == .playing {
+        if musicPlayer.playbackState == .playing  && SKCloudServiceController.authorizationStatus() == .authorized {
             if let nowPlayingItem = musicPlayer.nowPlayingItem {
                 debugPrint("nowPlayingItem.albumTitle", nowPlayingItem.albumTitle as Any)
                 let song = Song(
