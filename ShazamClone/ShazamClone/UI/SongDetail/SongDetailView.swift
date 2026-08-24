@@ -16,44 +16,43 @@ struct SongDetailView: View {
     @State private var showAlbumCantOpen = false
     @Environment(\.openURL) private var openURL
     var body: some View {
-        ZStack {
-            GeometryReader { geometry in
-                VStack {
-                    
+        GeometryReader { geometry in
+            ZStack(alignment: .center){
+                VStack(alignment: .center){
                     
                     if song.artworkUrl != nil {
                         AsyncImage(url: song.artworkUrl) { phase in
                             if let image = phase.image {
                                 image.resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(maxHeight: 200)
-                                    .clipped()
+                                    .scaledToFit()
+                                    .frame(maxHeight: geometry.size.height / 2)
+                                
                             } else if phase.error != nil {
                                 Color(UIColor.systemBlue)
                             } else {
                                 ProgressView()
                             }
-                        }.frame(height: 200, alignment: .center)
+                        }.frame(height: geometry.size.height / 2, alignment: .center)
                         
                     } else {
                         if  let mediaItemArtwork = song.mpMediaItemArtwork {
-                            if let songImage = mediaItemArtwork.image(at: CGSize( width: 500, height:200))
+                            if let songImage = mediaItemArtwork.image(at: CGSize( width: 500, height:geometry.size.height / 2))
                             {
-                                    Image(uiImage:songImage).resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(maxHeight: 200).clipped()
-                                } else {
-                                    ZStack {
-                                        Color(UIColor.systemRed).frame(height:200, alignment: .center)
-                                        Text("Error getting artwork from media item artwork").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: 300, height: 100, alignment: .center)
-                                        
-                                    }
+                                Image(uiImage:songImage).resizable()
+                                    .scaledToFit()
+                                    .frame(maxHeight: geometry.size.height / 2)
+                            } else {
+                                ZStack {
+                                    Color(UIColor.systemRed).frame(height:geometry.size.height / 2, alignment: .center)
+                                    Text("Error getting artwork from media item artwork").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: geometry.size.height / 2, height: 100, alignment: .center)
+                                    
                                 }
                             }
-                            else {
+                        }
+                        else {
                             ZStack {
-                                Color(UIColor.systemRed).frame(height:200, alignment: .center)
-                                Text("Error getting media item artwork").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: 300, height: 100, alignment: .center)
+                                Color(UIColor.systemRed).frame(height:geometry.size.height / 2, alignment: .center)
+                                Text("Error getting media item artwork").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: geometry.size.height / 4, height: 100, alignment: .center)
                                 
                             }
                         }
@@ -71,13 +70,13 @@ struct SongDetailView: View {
                     }
                     .padding(.horizontal)
                     .padding(.bottom)
-                     if song.appleMusicUrl != nil {
+                    if song.appleMusicUrl != nil {
                         if let appleMusicUrl = song.appleMusicUrl {
                             Link(destination: appleMusicUrl, label: {
                                 Text("Play on Apple Music ")
                                     .font(.system(size: 14, weight: .bold, design: .default))
                                     .foregroundColor(.white)
-                                    .frame(width: geometry.size.width - 64, height: 48)
+                                    .frame(width: 300, height: 48)
                                     .background(
                                         RoundedRectangle(cornerRadius: 10).fill(Color(UIColor.systemRed))
                                             .shadow(radius: 1)
@@ -144,18 +143,15 @@ struct SongDetailView: View {
                         
                     }
                     
-                }
-                    
-                }
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color(UIColor.systemBackground))
-                        .shadow(color: Color(UIColor.systemGray).opacity(0.8), radius: 0.8)
-                )
-                .padding()
-            }
+                }.frame(width: geometry.size.width, height: geometry.size.height)
+                
+            }.frame(width: geometry.size.width, height: geometry.size.height)
         }
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding()
+            
+        }
+    
 
     }
 
