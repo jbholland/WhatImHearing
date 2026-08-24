@@ -109,7 +109,7 @@ struct ShazamView: View {
 
            
             }
-            .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+            .padding(EdgeInsets(top: 40, leading: 0, bottom: 10, trailing: 0))
         }
         .onAppear(perform: {
             bindViewModel()
