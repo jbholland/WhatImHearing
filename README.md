@@ -10,4 +10,4 @@ This application generates links to Wikipedia for a song identified via Shazam t
 
 These links may or may not work, as it tries to construct the needed link based on the song's title and artist as returned from the ShazamKit library. If  the links work, the Wikipedia app (if present) is opened on the page, or else the page is opened in a browser. It does not record or transmit any data about the user in any way. 
 
-Much Thanks (!) to Ken Nellis of the Washington Apple Pi for numerous suggestions, discoveries, and test results.
+Much Thanks (!) to Ken Nellis of the Washington Apple Pi and Andrew Solmssen for numerous suggestions, discoveries, and test results.
