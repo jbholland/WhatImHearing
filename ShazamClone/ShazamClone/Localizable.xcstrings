@@ -69,19 +69,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Error getting artwork from media item artwork."
+            "value" : "Error getting artwork from media item artwork. This happens with Apple Music playing a song that’s not in your library."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Error al obtener la imagen de la imagen del elemento multimedia."
+            "state" : "translated",
+            "value" : "Error al obtener la imagen de la imagen del elemento multimedia. Esto sucede cuando Apple Music reproduce una canción que no está en tu biblioteca."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Erreur lors de la récupération de l'illustration à partir de l'élément multimédia."
+            "value" : "Erreur lors de la récupération de l'illustration à partir de l'élément multimédia. Cela se produit lorsque Apple Music lit une chanson qui ne figure pas dans votre bibliothèque."
           }
         }
       }

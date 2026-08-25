@@ -43,16 +43,16 @@ struct SongDetailView: View {
                                     .frame(maxHeight: geometry.size.height / 2.2)
                             } else {
                                 ZStack {
-                                    Color(UIColor.systemRed).frame(height:geometry.size.height / 2.2, alignment: .center)
-                                    Text("Error getting artwork from media item artwork").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: geometry.size.height / 2.2, height: 100, alignment: .center)
+                                    Color.init(UIColor.systemBackground).frame(height:geometry.size.height / 2.2, alignment: .center)
+                                    Text("Error getting artwork from media item artwork").foregroundStyle(Color(UIColor.systemRed))                                .frame(width: geometry.size.width * 0.9, height: geometry.size.height / 2.2, alignment: .center)
                                     
                                 }
                             }
                         }
                         else {
                             ZStack {
-                                Color(UIColor.systemRed).frame(height:geometry.size.height / 2.2, alignment: .center)
-                                Text("Error getting media item artwork").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: geometry.size.height / 4, height: 100, alignment: .center)
+                                Color(UIColor.systemBackground).frame(height:geometry.size.height / 2.2, alignment: .center)
+                                Text("Error getting media item artwork").foregroundStyle(Color(UIColor.systemRed))                                .frame(width: geometry.size.width * 0.9, height: geometry.size.height / 4, alignment: .center)
                                 
                             }
                         }
@@ -85,8 +85,8 @@ struct SongDetailView: View {
                         }
                     } else if song.album == "" { // if not a song retrieved from apple music
                         ZStack {
-                            Color(UIColor.systemRed).frame(height:20, alignment: .center)
-                            Text("Error getting AppleMusicLink").foregroundStyle(Color(UIColor.systemYellow))                                .frame(width: 300, height: 20, alignment: .center)
+                            Color(UIColor.systemBackground).frame(height:20, alignment: .center)
+                            Text("Error getting AppleMusicLink").foregroundStyle(Color(UIColor.systemRed))                                .frame(width: 300, height: 20, alignment: .center)
                         }
                     }
                     Text("Wikipedia:") .bold().font(.title).multilineTextAlignment(.center)
